@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'huggingface' => [
+        'api_key' => env('HUGGINGFACE_API_KEY'),
+        'fine_grain_token' => env('HUGGINGFACE_FINE_GRAIN_TOKEN'),
+    ],
+
+    'hyperbolic' => [
+        'api_key' => env('HYPERBOLIC_API_KEY'),
+    ],
+
 ];
