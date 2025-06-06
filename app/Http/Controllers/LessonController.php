@@ -50,8 +50,9 @@ class LessonController extends Controller
     public function showOne($id)
     {
         $lesson = \App\Models\Lesson::findOrFail($id);
+        $questions = \App\Models\Question::where('lesson_id', $lesson->id)->latest()->get();
 
-        return view('lessons.show', compact('lesson'));
+        return view('lessons.show', compact('lesson', 'questions'));
     }
 
     public function showAll()
