@@ -61,10 +61,10 @@ composer install
 npm install && npm run dev
 ```
 
-4. Configure Environment Variables
-```.env
+4. Configure
+Environment Variables
 Create a .env file and fill in values similar to:
-
+```.env
 APP_NAME="EduLearn"
 APP_URL=http://localhost
 
@@ -91,7 +91,7 @@ You can optionally add some test data using seeders.
 ```bash
 php artisan db:seed
 ```
-**Note**: Multiple accounts including admin@ed-tech.com and student@ed-tech.com, along others with random names and email addresses will be available upon seeding. Use the admin account in order to create lessons.
+**Note**: Multiple accounts including admin@ed-tech.com and student@ed-tech.com, alongside others with random names and email addresses will be available upon seeding. Use the admin account in order to create lessons.
 'password' is the passkey for both accounts.
 
 🏃 Running the Application
