@@ -34,6 +34,5 @@
 
     <div id="app">
         <lesson-show :lesson="{{ $lesson }}"></lesson-show>
-        <ask-question :questions="{{ $questions }}"></ask-question>
     </div>
 </x-app-layout>

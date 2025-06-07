@@ -1,11 +1,25 @@
 <template>
   <!-- Reading Progress Indicator -->
-  <div class="fixed top-20 right-4 bg-white/95 backdrop-blur-sm px-4 py-3 rounded-xl shadow-lg text-sm text-gray-700 z-30 border border-white/20">
-      <div class="flex items-center space-x-2">
-          <i class="fas fa-eye text-blue-500"></i>
-          <span class="font-medium"><span id="reading-progress">{{ readingProgress }}</span>% read</span>
-      </div>
-  </div>
+  <div class="fixed top-20 right-4 space-y-3 z-30">
+    <!-- Reading Progress -->
+    <div class="bg-white/95 backdrop-blur-sm px-4 py-3 rounded-xl shadow-lg text-sm text-gray-700 border border-white/20">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-eye text-blue-500"></i>
+            <span class="font-medium"><span id="reading-progress">{{ readingProgress }}</span>% read</span>
+        </div>
+    </div>
+    
+    <!-- Chat Assistant -->
+    <div class="bg-white/95 backdrop-blur-sm px-4 py-3 rounded-xl shadow-lg text-sm text-gray-700 border border-white/20">
+        <button @click="toggleChat" class="flex items-center space-x-2 hover:text-blue-600 transition-colors group w-full text-left">
+            <i :class="chatOpen ? 'fas fa-times text-red-500' : 'fas fa-robot text-green-500'" class="transition-colors"></i>
+            <span class="font-medium">{{ chatOpen ? 'Close' : 'AI Assistant' }}</span>
+            <div v-if="!chatOpen && chatMessages.length > 0" class="w-5 h-5 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold ml-auto">
+                {{ chatMessages.length }}
+            </div>
+        </button>
+    </div>
+</div>
 
   <div class="py-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,43 +99,23 @@
       </div>
   </div>
 
-  <!-- Enhanced Floating Chat Button -->
-  <div class="fixed bottom-6 right-6 z-40">
-        <button @click="toggleChat" 
-            class="w-16 h-16 rounded-2xl shadow-2xl hover-lift transition-all duration-300 relative overflow-hidden group"
-            :class="chatOpen ? 'bg-red-500 hover:bg-red-600' : 'bg-gradient-to-br from-blue-500 to-purple-600'">
-            <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <i :class="chatOpen ? 'fas fa-times' : 'fas fa-comments'" class="text-white text-xl relative z-10"></i>
-        </button>
+    <!-- AI Q&A Modal -->
+    <div v-if="chatOpen" class="fixed inset-0 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+      <div class="w-full max-w-4xl h-[80vh rounded-2xl shadow-2xl overflow-hidden">
+        <AIQAAssistant :lesson-id="lesson.id" 
+          ref="qaAssistant"
+          :embedded="false"
+          :lesson-title="lesson.title"
+          :lesson-content="lesson.content"
+          @close="chatOpen = false"
+        />
+      </div>
     </div>
-
-    <!-- Embedded AI Q&A Assistant -->
-  <div v-if="chatOpen" 
-      class="fixed right-0 z-50 transform transition-all duration-300"
-      :class="[chatOpen ? 'translate-x-0' : 'translate-x-full', isResizing ? 'resizing' : '']"
-      :style="{ 
-          top: '80px', 
-          height: 'calc(100vh - 80px)', 
-          width: chatWidth + 'px' 
-      }">
-      
-      <!-- Resize Handle -->
-      <div class="resize-handle" @mousedown="startResize" ref="resizeHandle"></div>
-      
-      <!-- Embedded Q&A Component -->
-      <AIQAAssistant 
-        ref="qaAssistant"
-        :embedded="true"
-        :lesson-title="lesson.title"
-        :lesson-content="lesson.content"
-        class="h-full bg-white/98 backdrop-blur-xl border-l border-gray-200/80 shadow-2xl rounded-none"
-      />
-  </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, nextTick, computed } from 'vue'
-import AIAssistant from './AskQuestion.vue'
+import AIQAAssistant from './AskQuestion.vue'
 
 const props = defineProps({
   lesson: {
@@ -138,9 +132,7 @@ const readingProgress = ref(0)
 const progressPercentage = ref(0)
 const chatMessagesRef = ref(null)
 const chatMessages = reactive([])
-const resizeHandle = ref(null)
-const isResizing = ref(false)
-const chatWidth = ref(400)
+const hasUnreadMessages = ref(false)
 const isBookmarked = ref(false)
 
 // Computed properties
@@ -158,27 +150,6 @@ function formatDate(dateString) {
     month: 'long',
     day: 'numeric'
   })
-}
-
-function startResize(e) {
-  isResizing.value = true
-  const startX = e.clientX
-  const startWidth = chatWidth.value
-
-  const onMouseMove = (moveEvent) => {
-    const delta = startX - moveEvent.clientX
-    const newWidth = Math.min(Math.max(startWidth + delta, 320), 800)
-    chatWidth.value = newWidth
-  }
-
-  const onMouseUp = () => {
-    isResizing.value = false
-    window.removeEventListener('mousemove', onMouseMove)
-    window.removeEventListener('mouseup', onMouseUp)
-  }
-
-  window.addEventListener('mousemove', onMouseMove)
-  window.addEventListener('mouseup', onMouseUp)
 }
 
 function toggleChat() {
@@ -337,5 +308,23 @@ onMounted(() => {
 
 .chat-panel ::-webkit-scrollbar-thumb:hover {
   background: rgba(59, 130, 246, 0.5);
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
 }
 </style>

@@ -1,61 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# EduLearn 🎓
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**EduLearn** is an AI-powered EdTech platform built with Laravel and Vue.js. It allows administrators to upload lesson materials, while students can read content and interact with an AI assistant to ask questions and receive helpful answers.
 
-## About Laravel
+This project was created as part of a 7-day assessment and includes AI integration via Hugging Face for real-time educational assistance.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Admin authentication and dashboard
+- Upload and manage lesson materials
+- Student login and access to lessons
+- Ask AI: Students can ask questions related to any lesson
+- AI answers powered by Hugging Face's DeepSeek R1 model
+- Session and queue management via PostgreSQL
+- Responsive UI with Vue.js and Blade templates
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🧠 AI Integration
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The platform integrates with **DeepSeek R1**, hosted on Hugging Face via [Hyperbolic's API Router](https://router.huggingface.co/hyperbolic/v1/chat/completions).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Model Used**: `deepseek-chat`
+- **API Provider**: Hugging Face (via Hyperbolic)
+- **Endpoint**: `https://router.huggingface.co/hyperbolic/v1/chat/completions`
 
-## Laravel Sponsors
+Make sure you have a valid `HYPERBOLIC_API_KEY` stored in your `.env` file for this to work.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🧰 Tech Stack
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+| Layer        | Tech                        |
+|--------------|-----------------------------|
+| Backend      | Laravel 11                  |
+| Frontend     | Vue 3 + Blade               |
+| AI API       | Hugging Face (DeepSeek R1)  |
+| Database     | PostgreSQL                  |
+| Auth System  | Laravel Breeze              |
+| Session/Queue| Database                    |
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🚀 Setup Instructions
 
-## Code of Conduct
+### 1. Clone the Repository
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone https://github.com/your-username/edulearn.git
+cd edulearn
 
-## Security Vulnerabilities
+2. Install PHP Dependencies
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+composer install
 
-## License
+3. Install JavaScript Dependencies
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+npm install && npm run dev
+
+4. Configure Environment Variables
+
+Create a .env file and fill in values similar to:
+
+APP_NAME="EduLearn"
+APP_URL=http://localhost
+
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=ed-tech
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_db_password
+
+HYPERBOLIC_API_KEY=your_huggingface_api_key
+
+    Note: Your .env file should also include a valid APP_KEY generated using:
+
+php artisan key:generate
+
+5. Run Migrations
+
+php artisan migrate
+
+6. (Optional) Seed the Database
+
+You can optionally add some test data using seeders.
+
+php artisan db:seed
+
+- Note: Two user accounts admin@ed-tech.com and student@ed-tech.com will be available upon seeding. Use the admin account i order to create lessons.
+'password' is the passkey for both accounts.
+
+🏃 Running the Application
+Start the Laravel server:
+
+php artisan serve
+
+Start the Vite dev server:
+
+npm run dev
+
+Then visit http://localhost:8000 in your browser.
+```
+
+## 📁 Project Structure
+
+├── app/
+├── resources/
+│   ├── js/         ← Vue.js components
+│   └── views/      ← Blade templates
+├── routes/
+│   └── web.php     ← Main route definitions
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── .env            ← Environment configuration
+├── package.json    ← JavaScript dependencies
+├── vite.config.js  ← Vite configuration
+├── composer.json   ← PHP dependencies
+
+## NOTE:
+This project is for educational/demo purposes and does not yet carry a license. Contact the author if you'd like to reuse parts of the project.
+
+## 🙌 Acknowledgements
+- DeepSeek R1 Model
+- Laravel
+- Vue.js
+- Hugging Face

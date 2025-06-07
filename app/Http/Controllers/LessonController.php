@@ -100,7 +100,7 @@ class LessonController extends Controller
         $question->update(['answer' => $answer, 'short_answer' => $short_answer]);
 
         return response()->json([
-            'answer' => $short_answer,
+            'short_answer' => $short_answer,
         ]);
     }
 }
