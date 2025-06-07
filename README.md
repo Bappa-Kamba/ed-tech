@@ -47,7 +47,7 @@ Make sure you have a valid `HYPERBOLIC_API_KEY` stored in your `.env` file for t
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/bappa-kamba/ed-tech.git
+git clone https://github.com/bappa-kamba/ed-tech.git eduLearn
 cd edulearn
 ```
 
