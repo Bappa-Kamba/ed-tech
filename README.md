@@ -106,7 +106,7 @@ npm run dev
 Then visit http://localhost:8000 in your browser.
 
 ## 📁 Project Structure
-
+```
 ├── app/
 ├── resources/
 │   ├── js/         ← Vue.js components
@@ -120,7 +120,7 @@ Then visit http://localhost:8000 in your browser.
 ├── package.json    ← JavaScript dependencies
 ├── vite.config.js  ← Vite configuration
 ├── composer.json   ← PHP dependencies
-
+```
 ## NOTE:
 This project is for educational/demo purposes and does not yet carry a license. Contact the author if you'd like to reuse parts of the project.
 For best experience with the AI bot, create new lessons with meeaningful contents. DO NOT rely on the seeded lessons.
