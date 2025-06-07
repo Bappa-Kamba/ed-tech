@@ -49,17 +49,20 @@ Make sure you have a valid `HYPERBOLIC_API_KEY` stored in your `.env` file for t
 ```bash
 git clone https://github.com/bappa-kamba/ed-tech.git
 cd edulearn
+```
 
 2. Install PHP Dependencies
-
+```bash
 composer install
+```
 
 3. Install JavaScript Dependencies
-
+```bash
 npm install && npm run dev
+```
 
 4. Configure Environment Variables
-
+```.env
 Create a .env file and fill in values similar to:
 
 APP_NAME="EduLearn"
@@ -73,35 +76,34 @@ DB_USERNAME=your_db_user
 DB_PASSWORD=your_db_password
 
 HYPERBOLIC_API_KEY=your_huggingface_api_key
-
-    Note: Your .env file should also include a valid APP_KEY generated using:
-
+```
+Note: Your .env file should also include a valid APP_KEY generated using:
+```bash
 php artisan key:generate
-
+```
 5. Run Migrations
-
+```bash
 php artisan migrate
-
+```
 6. (Optional) Seed the Database
 
 You can optionally add some test data using seeders.
-
+```bash
 php artisan db:seed
-
-- Note: Multiple accounts admin@ed-tech.com and student@ed-tech.com, among others with random names and email addresses will be available upon seeding. Use the admin account in order to create lessons.
+```
+**Note**: Multiple accounts including admin@ed-tech.com and student@ed-tech.com, along others with random names and email addresses will be available upon seeding. Use the admin account in order to create lessons.
 'password' is the passkey for both accounts.
 
 🏃 Running the Application
 Start the Laravel server:
-
+```bash
 php artisan serve
-
-Start the Vite dev server:
-
-npm run dev
-
-Then visit http://localhost:8000 in your browser.
 ```
+Start the Vite dev server:
+```bash
+npm run dev
+```
+Then visit http://localhost:8000 in your browser.
 
 ## 📁 Project Structure
 
