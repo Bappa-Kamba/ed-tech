@@ -9,11 +9,10 @@ This project was created as part of a 7-day assessment and includes AI integrati
 ## ✨ Features
 
 - Admin authentication and dashboard
-- Upload and manage lesson materials
+- Upload lesson materials
 - Student login and access to lessons
 - Ask AI: Students can ask questions related to any lesson
 - AI answers powered by Hugging Face's DeepSeek R1 model
-- Session and queue management via PostgreSQL
 - Responsive UI with Vue.js and Blade templates
 
 ---
@@ -89,7 +88,7 @@ You can optionally add some test data using seeders.
 
 php artisan db:seed
 
-- Note: Two user accounts admin@ed-tech.com and student@ed-tech.com will be available upon seeding. Use the admin account i order to create lessons.
+- Note: Multiple accounts admin@ed-tech.com and student@ed-tech.com, among others with random names and email addresses will be available upon seeding. Use the admin account in order to create lessons.
 'password' is the passkey for both accounts.
 
 🏃 Running the Application
@@ -122,6 +121,7 @@ Then visit http://localhost:8000 in your browser.
 
 ## NOTE:
 This project is for educational/demo purposes and does not yet carry a license. Contact the author if you'd like to reuse parts of the project.
+For best experience with the AI bot, create new lessons with meeaningful contents. DO NOT rely on the seeded lessons.
 
 ## 🙌 Acknowledgements
 - DeepSeek R1 Model
